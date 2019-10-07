@@ -1,12 +1,15 @@
+require 'pg'
+
 class BookmarkManager
   attr_reader :bookmarks
 
   def self.all
-    [
-    'https://www.bbc.co.uk/',
-    'https://www.google.com',
-    'https://www.wikipedia.org/',
-    'https://www.spacejam.com'
-  ]
+    con = PG.connect :dbname => 'bookmark_manager', :user => 'duncanskinner'
+
+    rs = con.exec "SELECT * FROM bookmarks"
+
+    rs.map do |bookmark|
+      bookmark['url']
+    end
   end
 end

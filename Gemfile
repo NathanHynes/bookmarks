@@ -12,4 +12,4 @@ gem 'shotgun'
 gem 'rack'
 gem 'rake'
 gem 'rubocop'
-
+gem 'pg'
