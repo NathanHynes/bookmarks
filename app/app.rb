@@ -12,6 +12,7 @@ get '/test' do
 end
 
 get '/bookmarks' do
+  @bookmarks = BookmarkManager.all
   erb :bookmarks
 end
 

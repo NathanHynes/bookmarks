@@ -5,7 +5,9 @@
     <title>Bookmarks</title>
   </head>
   <body>
-    <p>BBC news</p>
-    <p>Wikipedia</p>
+    <ul><% @bookmarks.each do |bookmark| %>
+      <li><%=bookmark%></li>
+      <% end %>
+    </ul>
   </body>
 </html>
