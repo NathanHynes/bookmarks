@@ -1,5 +1,5 @@
 require 'sinatra/base'
-require '/Users/duncanskinner/Documents/makers_academy/course/week_4/weekly_challenge/lib/bookmark_manager.rb'
+require '~/Documents/Makers Academy/Projects/Weekday-Challenges/bookmarks/lib/bookmark_manager.rb'
 
 class Bookmark < Sinatra::Base
 enable :sessions
