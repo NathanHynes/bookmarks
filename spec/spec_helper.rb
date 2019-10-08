@@ -22,7 +22,7 @@ require 'features/web_helper'
 require_relative './setup_test_database.rb'
 
 
-Capybara.app = Bookmark
+Capybara.app = BookmarkManager
 
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
