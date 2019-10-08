@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'sinatra/base'
-require '~/Documents/Makers Academy/Projects/Weekday-Challenges/bookmarks/lib/bookmark_manager.rb'
+require_relative '../lib/bookmark_manager.rb'
 
 class Bookmark < Sinatra::Base
   enable :sessions
