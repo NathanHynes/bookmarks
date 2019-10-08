@@ -16,4 +16,11 @@ describe BookmarkManager do
       expect(bookmarks).to include('https://shredsauce.com')
     end
   end
+
+  describe '#create' do
+    it 'creates a bookmark' do
+      BookmarkManager.create(address: 'http://www.bbc.co.uk')
+      expect(BookmarkManager.all).to include 'http://www.bbc.co.uk'
+    end
+  end
 end
