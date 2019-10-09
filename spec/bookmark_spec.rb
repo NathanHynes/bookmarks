@@ -39,4 +39,14 @@ describe Bookmark do
       expect{Bookmark.delete(id: bookmark1.id)}.to change{Bookmark.all.length}.by(-1)
     end
   end
+
+  describe '.update' do
+    it 'updates a bookmark' do
+      bookmark = Bookmark.create(address: 'http://www.bbc.co.uk', title: 'BBC News')
+      updated_bookmark = Bookmark.update(title: 'BBC Sport', url: 'https://www.bbc.co.uk/sport', id: bookmark.id)
+      expect(updated_bookmark.title).to eq 'BBC Sport'
+      expect(updated_bookmark.url).to eq 'https://www.bbc.co.uk/sport'
+      expect(updated_bookmark.id).to eq bookmark.id
+    end
+  end
 end
