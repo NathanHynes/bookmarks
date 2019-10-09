@@ -7,8 +7,7 @@ describe Bookmark do
 
   describe '.all' do
     it 'returns all bookmarks' do
-      conn = PG.connect :dbname => 'bookmark_manager_test'
-      bookmark = Bookmark.create(address: 'https://www.miniclip.com/games/en/', title: 'Miniclip')
+      Bookmark.create(address: 'https://www.miniclip.com/games/en/', title: 'Miniclip')
       Bookmark.create(address: 'https://shredsauce.com', title: 'Shredsauce')
       Bookmark.create(address: 'https://www.spacejam.com', title: 'Space Jam')
 
@@ -30,6 +29,14 @@ describe Bookmark do
       expect(bookmark.id).to eq persisted_data.first['id']
       expect(bookmark.title).to eq 'BBC News'
       expect(bookmark.url).to eq 'http://www.bbc.co.uk'
+    end
+  end
+
+  describe '.delete' do
+    it 'deletes bookmark' do
+      bookmark1 = Bookmark.create(address: 'http://www.bbc.co.uk', title: 'BBC News')
+      Bookmark.create(address: 'http://www.bbc.co.uk', title: 'BBC Sport')
+      expect{Bookmark.delete(id: bookmark1.id)}.to change{Bookmark.all.length}.by(-1)
     end
   end
 end
