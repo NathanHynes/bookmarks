@@ -2,15 +2,20 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Bookmarks</title>
   </head>
   <body>
     <h1>Bookmark Manager</h1>
-    <form class="" action="/bookmarks" method="get">
-      <button type="submit" name="button">Show all bookmarks</button>
-    </form>
-
-    <form class="" action="/new" method="get">
+    <ul>
+      <% @bookmarks.each do |bookmark| %>
+        <li>
+          <a href="<%= bookmark.url %>">
+            <%= bookmark.title %>
+          </a>
+        </li>
+      <% end %>
+    </ul>
+    <form class="" action="/bookmarks/new" method="get">
       <button type="submit" name="button">Add bookmark</button>
     </form>
   </body>
