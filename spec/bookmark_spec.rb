@@ -49,4 +49,15 @@ describe Bookmark do
       expect(updated_bookmark.id).to eq bookmark.id
     end
   end
+
+  describe '.find' do
+    it 'finds a bookmark' do
+      bookmark = Bookmark.create(address: 'http://www.bbc.co.uk', title: 'BBC News')
+      result = Bookmark.find(id:bookmark.id)
+      expect(result.title).to eq 'BBC News'
+      expect(result.url).to eq 'http://www.bbc.co.uk'
+      expect(result).to be_a Bookmark
+      expect(result.id).to eq bookmark.id
+    end
+  end
 end

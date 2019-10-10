@@ -41,6 +41,12 @@ class Bookmark
     Bookmark.new(id: result[0]['id'], title: result[0]['title'], url: result[0]['url'])
   end
 
+  def self.find(id:)
+    con = which_connection?
+    result = con.exec("SELECT * FROM bookmarks WHERE id = #{id};")
+    Bookmark.new(id: result[0]['id'], title: result[0]['title'], url: result[0]['url'])
+  end
+
   def self.which_connection?
     if ENV['ENVIRONMENT'] == 'test'
       PG.connect dbname: 'bookmark_manager_test'
