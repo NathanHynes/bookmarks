@@ -1,5 +1,5 @@
 feature 'update bookmark' do
-  it 'returns bookmark with updated details' do
+  scenario 'User can update a bookmark' do
     Bookmark.create(address: 'https://www.spacejam.com', title: 'Space Jam')
     visit('/')
     expect(page).to have_link('Space Jam', href: 'https://www.spacejam.com')
