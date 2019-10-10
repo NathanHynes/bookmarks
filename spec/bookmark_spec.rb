@@ -4,7 +4,6 @@ require 'bookmark'
 require 'database_helpers'
 
 describe Bookmark do
-
   describe '.all' do
     it 'returns all bookmarks' do
       Bookmark.create(address: 'https://www.miniclip.com/games/en/', title: 'Miniclip')
@@ -30,13 +29,18 @@ describe Bookmark do
       expect(bookmark.title).to eq 'BBC News'
       expect(bookmark.url).to eq 'http://www.bbc.co.uk'
     end
+
+    it 'does not create a new bookmark if the URL is not valid' do
+      Bookmark.create(address: 'not a real bookmark', title: 'not a real bookmark')
+      expect(Bookmark.all).not_to include 'not a real bookmark'
+    end
   end
 
   describe '.delete' do
     it 'deletes bookmark' do
       bookmark1 = Bookmark.create(address: 'http://www.bbc.co.uk', title: 'BBC News')
       Bookmark.create(address: 'http://www.bbc.co.uk', title: 'BBC Sport')
-      expect{Bookmark.delete(id: bookmark1.id)}.to change{Bookmark.all.length}.by(-1)
+      expect { Bookmark.delete(id: bookmark1.id) }.to change { Bookmark.all.length }.by(-1)
     end
   end
 
@@ -53,7 +57,7 @@ describe Bookmark do
   describe '.find' do
     it 'finds a bookmark' do
       bookmark = Bookmark.create(address: 'http://www.bbc.co.uk', title: 'BBC News')
-      result = Bookmark.find(id:bookmark.id)
+      result = Bookmark.find(id: bookmark.id)
       expect(result.title).to eq 'BBC News'
       expect(result.url).to eq 'http://www.bbc.co.uk'
       expect(result).to be_a Bookmark
