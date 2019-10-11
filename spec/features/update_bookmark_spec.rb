@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 feature 'update bookmark' do
   scenario 'User can update a bookmark' do
     Bookmark.create(address: 'https://www.spacejam.com', title: 'Space Jam')

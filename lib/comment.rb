@@ -11,8 +11,6 @@ class Comment
     @bookmark_id = bookmark_id
   end
 
-
-
   def self.create(bookmark_id:, text:)
     result = DatabaseConnection.query("INSERT INTO comments (bookmark_id, text) VALUES ('#{bookmark_id}','#{text}') RETURNING id, text, bookmark_id;")
     Comment.new(
@@ -22,4 +20,14 @@ class Comment
     )
   end
 
+  def self.where(bookmark_id:)
+    result = DatabaseConnection.query("SELECT * FROM comments WHERE bookmark_id = #{bookmark_id};")
+    result.map do |comment|
+      Comment.new(
+        id: comment['id'],
+        text: comment['text'],
+        bookmark_id: comment['bookmark_id']
+      )
+    end
+  end
 end

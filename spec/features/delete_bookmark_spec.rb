@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 feature 'delete' do
   it 'deletes specified bookmark' do
     create_bookmark

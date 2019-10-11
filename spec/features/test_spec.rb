@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 feature 'test' do
   scenario 'run test' do
     visit '/test'

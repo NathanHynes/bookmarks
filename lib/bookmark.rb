@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'database_connection'
+require_relative 'comment.rb'
 
 class Bookmark
   attr_reader :id, :title, :url
@@ -47,7 +48,7 @@ class Bookmark
     url =~ /\A#{URI.regexp(%w[http https])}\z/
   end
 
-  def comments
-    DatabaseConnection.query("SELECT * FROM comments WHERE bookmark_id = #{id};")
+  def comments(comment_class = Comment)
+    comment_class.where(bookmark_id: id)
   end
 end
