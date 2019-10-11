@@ -63,6 +63,16 @@
           <form class="update" action="/bookmarks/<%=bookmark.id %>/update" method="get">
             <input type="submit" value="Update">
           </form>
+
+          <ul>
+            <% bookmark.comments.each do |comment| %>
+            <li><%= comment.text %></li>
+            <% end %>
+          </ul>
+          
+          <form class="comment" action="/bookmarks/<%=bookmark.id %>/comments/new" method="get">
+            <input type="submit" value="Add Comment">
+          </form>
         </li>
       <% end %>
     </ul>
