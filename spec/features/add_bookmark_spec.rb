@@ -2,11 +2,7 @@
 
 feature 'Add Bookmark' do
   scenario 'Bookmark is added to table' do
-    visit('/')
-    click_button 'Add bookmark'
-    fill_in :url, with: 'https://www.bbc.co.uk'
-    fill_in :title, with: 'BBC'
-    click_button 'Add'
+    create_bookmark
     expect(page).to have_link('BBC', href: 'https://www.bbc.co.uk')
   end
 

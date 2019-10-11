@@ -3,28 +3,71 @@
   <head>
     <meta charset="utf-8">
     <title>Bookmarks</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $(".close").click(function () {
+          $("#myAlert").alert("close");
+        });
+      });
+    </script>
+    <style>
+      h1 {
+        text-align: center;
+      }
+
+      li {
+        width: 316px;
+        margin-bottom: 20px;
+      }
+      .delete {
+        float: right;
+      }
+
+      .update {
+        float: right;
+        margin-right: 27px;
+      }
+
+      .alert {
+        text-align: center;
+        */ width: 50%;
+        display: flex;
+        margin: auto;
+        padding-left: 75px;
+        padding-top: 10px;
+        height: 50px;
+        background-color: red;
+      }
+    </style>
   </head>
   <body>
     <h1>Bookmark Manager</h1>
+    <% flash.keys.each do |type| %>
+      <div class="alert alert-success alert-dismissible" id="myAlert">
+        <p><%= flash[type] %></p>
+        <a href="#" class="close">&times;</a>
+      </div>
+    <% end %>
     <ul>
       <% @bookmarks.each do |bookmark| %>
         <li class="bookmark" id="bookmark-<%= bookmark.id %>">
           <a href="<%= bookmark.url %>" target="_blank">
             <%= bookmark.title %>
           </a>
-          <form action="/bookmarks/<%=bookmark.id %>" method="post">
+          <form class='delete' action="/bookmarks/<%=bookmark.id %>" method="post">
             <input type='hidden' name='_method' value="DELETE"/>
             <input type="submit" value="Delete"/>
           </form>
-          <form action="/bookmarks/<%=bookmark.id %>/update" method="get">
+          <form class="update" action="/bookmarks/<%=bookmark.id %>/update" method="get">
             <input type="submit" value="Update">
           </form>
         </li>
       <% end %>
     </ul>
-    <form class="" action="/bookmarks/new" method="get">
+    <form action="/bookmarks/new" method="get">
       <button type="submit" name="button">Add bookmark</button>
     </form>
-    <p><%= flash[:notice] %></p>
   </body>
 </html>
