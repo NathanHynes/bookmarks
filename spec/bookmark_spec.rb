@@ -22,10 +22,9 @@ describe Bookmark do
   describe '.create' do
     it 'creates a bookmark' do
       bookmark = Bookmark.create(address: 'http://www.bbc.co.uk', title: 'BBC News')
-      persisted_data = persisted_data(id: bookmark.id)
 
       expect(bookmark).to be_a Bookmark
-      expect(bookmark.id).to eq persisted_data.first['id']
+      expect(bookmark.id).to eq bookmark.id
       expect(bookmark.title).to eq 'BBC News'
       expect(bookmark.url).to eq 'http://www.bbc.co.uk'
     end
@@ -62,6 +61,17 @@ describe Bookmark do
       expect(result.url).to eq 'http://www.bbc.co.uk'
       expect(result).to be_a Bookmark
       expect(result.id).to eq bookmark.id
+    end
+  end
+
+  describe '#comments' do
+    it 'returns a list of comments on the bookmark' do
+      bookmark = Bookmark.create(title: 'Makers Academy', address: 'http://www.makersacademy.com')
+      DatabaseConnection.query("INSERT INTO comments (id, text, bookmark_id) VALUES(1, 'Test comment', #{bookmark.id})")
+
+      comment = bookmark.comments.first
+
+      expect(comment['text']).to eq 'Test comment'
     end
   end
 end

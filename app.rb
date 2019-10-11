@@ -5,6 +5,7 @@ require 'uri'
 require 'sinatra/flash'
 require_relative './lib/bookmark'
 require_relative './database_connection_setup'
+require_relative './lib/comment'
 
 class BookmarkManager < Sinatra::Base
   enable :sessions, :method_override
@@ -49,10 +50,13 @@ class BookmarkManager < Sinatra::Base
   end
 
   get '/bookmarks/:id/comments/new' do
+    p params
+    @bookmark_id = params[:id]
     erb :'comments/new'
   end
 
   post '/bookmarks/:id/comments' do
+    Comment.create(text: params[:comment], bookmark_id: params[:id])
     redirect '/bookmarks'
   end
 

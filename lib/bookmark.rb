@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require_relative 'database_connection'
 
 class Bookmark
@@ -11,7 +12,7 @@ class Bookmark
   end
 
   def self.all
-    result = DatabaseConnection.query("SELECT * FROM bookmarks")
+    result = DatabaseConnection.query('SELECT * FROM bookmarks')
     result.map do |bookmark|
       Bookmark.new(
         url: bookmark['url'],
@@ -23,6 +24,7 @@ class Bookmark
 
   def self.create(address:, title:)
     return false unless is_url?(address)
+
     result = DatabaseConnection.query("INSERT INTO bookmarks (url, title) VALUES('#{address}', '#{title}')RETURNING id, url, title;")
     Bookmark.new(id: result[0]['id'], title: result[0]['title'], url: result[0]['url'])
   end
@@ -42,7 +44,10 @@ class Bookmark
   end
 
   def self.is_url?(url)
-    url =~ /\A#{URI::regexp(['http', 'https'])}\z/
+    url =~ /\A#{URI.regexp(%w[http https])}\z/
   end
 
+  def comments
+    DatabaseConnection.query("SELECT * FROM comments WHERE bookmark_id = #{id};")
+  end
 end
