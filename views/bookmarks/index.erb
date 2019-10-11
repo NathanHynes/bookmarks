@@ -44,6 +44,10 @@
   </head>
   <body>
     <h1>Bookmark Manager</h1>
+    <% if @user %>
+    <h1>Welcome, <%= @user.email %></h1>
+    <% end %>
+
     <% flash.keys.each do |type| %>
       <div class="alert alert-success alert-dismissible" id="myAlert">
         <p><%= flash[type] %></p>

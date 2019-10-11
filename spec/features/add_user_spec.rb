@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 feature 'user creation' do
   scenario 'a new user is created' do
     visit('/')
